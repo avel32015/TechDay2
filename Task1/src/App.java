@@ -22,10 +22,10 @@ public class App {
 				System.out.println("Buffer is full");
 				consume.await();
 			}
+			System.out.println("Produce " + value + ", head " + head);
 			buffer[head] = value;
 			head = pos;
 			produce.signal();
-			System.out.println("produce " + value + ", head " + head);
 		} catch (InterruptedException e) {
 		} finally {
 			lock.unlock();
@@ -44,10 +44,10 @@ public class App {
 				System.out.println("Buffer is empty");
 				produce.await();
 			}
+			System.out.println("Consume " + value + ", tail " + tail);
 			value = buffer[tail];
 			tail = pos;
 			consume.signal();
-			System.out.println("consume " + value + ", tail " + tail);
 		} catch (InterruptedException e) {
 		} finally {
 			lock.unlock();
