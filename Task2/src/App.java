@@ -50,6 +50,8 @@ public class App {
 		exec.submit( () -> { f1.third(); } );
 		exec.submit( () -> { f1.second(); } );
 		exec.submit( () -> { f1.first(); } );
+		
+		exec.shutdownNow();
 	}
 
 }
