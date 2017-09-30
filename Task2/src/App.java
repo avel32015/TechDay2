@@ -7,32 +7,37 @@ public class App {
 		private Phaser ph = new Phaser(3);
 		
 	    private boolean awaitPhase(int phase) {
-	    	int n = 0; 
-	    	if (ph.getPhase() < phase) {
-	    		while (0 <= n && n < phase) {
-	    			if (n + 1 == phase) { 
-	    				n = ph.arriveAndDeregister(); 
-	    				return true; 
-	    			}
-	    			n = ph.arriveAndAwaitAdvance();
-	    		}
+	    	int p = ph.getPhase();
+	    	if (phase < p) return false;
+	    	while (p < phase) {
+	    		if (ph.isTerminated()) return false; 
+	    		//System.out.println((p + 1) + "/" + phase);
+	    		p = ph.arriveAndAwaitAdvance();
 	    	}
-	    	return false;
+	    	return true;
 	    }
 	    
-	    
 	    public void first() {
-	    	if (awaitPhase(1)) System.out.println("first");
+	    	if (awaitPhase(1)) {
+	    		System.out.println("first");
+		    	ph.arriveAndDeregister();
+	    	}
 	    	else System.out.println("illegal first");
 	    }
 	    
 	    public void second() {
-	    	if (awaitPhase(2)) System.out.println("second");
+	    	if (awaitPhase(2)) {
+	    		System.out.println("second");
+		    	ph.arriveAndDeregister();
+	    	}
 	    	else System.out.println("illegal second");
 	    }
 	    
 	    public void third() {
-	    	if (awaitPhase(3)) System.out.println("third");
+	    	if (awaitPhase(3)) {
+	    		System.out.println("third");
+		    	ph.arriveAndDeregister();
+	    	}
 	    	else System.out.println("illegal third");
 	    }
 	}
@@ -42,8 +47,8 @@ public class App {
 		ExecutorService exec = Executors.newCachedThreadPool();
 		
 		Foo f1 = app.new Foo();
-		exec.submit( () -> { f1.second(); } );
 		exec.submit( () -> { f1.third(); } );
+		exec.submit( () -> { f1.second(); } );
 		exec.submit( () -> { f1.first(); } );
 	}
 
