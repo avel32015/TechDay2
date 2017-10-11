@@ -34,6 +34,7 @@ public class App {
 		long value = anyValue++;
 		int next = (head + 1) % capacity; 
 		
+		// Если очередь заполнена, ждём освобождения
 		if (next == tail) {
 			lock.lock();
 			try {
@@ -49,11 +50,12 @@ public class App {
 			}
 		}
 		
-		//System.out.println("Produce " + value + ", head " + head);
+		System.out.println("Produce " + value + ", head " + head);
 		buffer[head] = value;
 		int prev = head;
 		head = next;
 		
+		// Если очередь была пуста, сигнализируем о заполнении
 		if (prev == tail) {
 			lock.lock();
 			try {
@@ -71,6 +73,7 @@ public class App {
 		long value = 0;
 		int next = (tail + 1) % capacity;
 		
+		// Если очередь пуста, ждём заполнения
 		if (head == tail) {
 			lock.lock();
 			try {
@@ -87,11 +90,12 @@ public class App {
 		}
 		
 		value = buffer[tail];
-		//System.out.println("Consume " + value + ", tail " + tail);
+		System.out.println("Consume " + value + ", tail " + tail);
 		int prev = tail;
 		tail = next;
 		next = (head + 1) % capacity;
 		
+		// Если очередь была заполнена, сигнализируем об освобождении
 		if (next == prev) {
 			lock.lock();
 			try {
