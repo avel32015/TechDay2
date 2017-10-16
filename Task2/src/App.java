@@ -1,3 +1,9 @@
+/*
+ThreadABC
+Экземпляр класса передается 3 потокам: ThreadA вызывает first(), ThreadB вызывает second(), ThreadC вызывает third().
+Разработайте механизм, гарантирующий, что метод first() будет вызван перед second(), а метод second() будет вызван перед third().
+*/
+
 import java.util.concurrent.*;
 
 public class App {

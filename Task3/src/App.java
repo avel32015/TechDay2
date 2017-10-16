@@ -1,3 +1,13 @@
+/*
+FizzBuZZ
+Напишите многопоточную версию этого алгоритма.
+
+Один поток проверяет кратность З и выводит «Fizz». Другой поток отвечает за проверку кратности 5 и выводит «Buzz». 
+Третий поток отвечает за проверку кратности З и 5 и выводит «FizzBuZZ». Четвертый поток работает с числами.
+
+Алгоритм — https://paste2.org/K8KB9zbL
+*/
+
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Phaser;
