@@ -1,1 +1,2 @@
-# TechDay2
+# Realtimeboard TechDay 2
+Решение конкурсных задач
